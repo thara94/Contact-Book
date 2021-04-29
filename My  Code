@@ -68,9 +68,9 @@ def importkinter():
     view.place(x= 270, y= 170, width = 300, height = 300)
 
 #heading for adding
-    tree.heading(1, text = "ID")
-    tree.heading(2, text = "Name")
-    tree.heading(3, text = "Phone")
+    view.heading(1, text = "ID")
+    view.heading(2, text = "Name")
+    view.heading(3, text = "Phone")
 
     root.mainloop()
     return
