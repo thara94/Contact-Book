@@ -12,36 +12,26 @@ def importkinter():
 
 #Title
     Title = Label(root, text = "Contact Book", font = ("Arial", 22), bg = "green", fg = "white",)
-    Title.place(x=100, y=0, width= 200)
+    Title.place(x=200, y=0, width= 200)
 
 
-#search label
-    search_byName = Label(root, text = "Search by name:", bg = "green", fg = "white")
-    search_byName.place(x=0, y=50, width=150)
-    inputforsearch_byName = Entry(root)
-    inputforsearch_byName.place(x= 150, y=50, width= 150)
-
-    search_byPhone = Label(root, text = "Search by Phone:", bg = "green", fg = "white")
-    search_byPhone.place(x=0, y=70, width=150)
-    inputforsearch_byPhone = Entry(root)
-    inputforsearch_byPhone.place(x= 150, y=70, width= 150)
-
+#
 #name label
     Name = Label(root, text = "First and Last Name :", bg = "light green", fg = "gray")
-    Name.place(x = 0, y= 100, width= 150)
+    Name.place(x = 0, y= 80, width= 150)
     inputName = Entry(root)
-    inputName.place(x=150, y= 100, width = 350)
+    inputName.place(x=150, y= 80, width = 350)
 #Phone Lable
     Phone = Label(root, text = "Phone Number :", bg = "light green", fg = "gray")
-    Phone.place(x = 0, y= 120, width= 150)
+    Phone.place(x = 0, y= 100, width= 150)
     inputPhone = Entry(root)
-    inputPhone.place(x=150, y= 120, width = 350)
+    inputPhone.place(x=150, y= 100, width = 350)
 
 #info label
     info = Label(root, text = "Contact Information :", bg = "light green", fg = "gray")
-    info.place(x = 0, y= 140, width= 150)
+    info.place(x = 0, y= 120, width= 150)
     inputinfo = Entry(root)
-    inputinfo.place(x=150, y= 140, width = 350)
+    inputinfo.place(x=150, y= 120, width = 350)
 
 # add button
     add = Button(root, text = "Add Contact", bg = "green", fg = "white")
@@ -55,17 +45,15 @@ def importkinter():
     Edit = Button(root, text= "Edit Contact", bg="green", fg="white")
     Edit.place(x= 10, y= 210, width = 150)
 
-#sort button
-    Sort = Button(root, text= "Sort Contact", bg="green", fg="white")
-    Sort.place(x= 10, y= 230, width = 150)
+
 
 #Exit button
     Exit = Button(root, text= "Exit", bg= "green", fg= "white", command = quit)
-    Exit.place(x= 10, y= 250, width = 150)
+    Exit.place(x= 10, y= 230, width = 150)
 
 #add view
     view = ttk.Treeview(root, columns = (1, 2, 3), height = 5, show = "headings")
-    view.place(x= 170, y= 170, width = 300, height = 200)
+    view.place(x= 170, y= 170, width = 300, height = 300)
 
     root.mainloop()
     return
