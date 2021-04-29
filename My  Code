@@ -1,0 +1,117 @@
+n = 0
+count = 0
+from idlelib import tree
+from tkinter import *
+import tkinter as ttk
+
+def importkinter():
+
+    root = Tk()
+    root.title("Contact Book")
+    root.geometry("500x500")
+
+#Title
+    Title = Label(root, text = "Contact Book", font = ("Arial", 22), bg = "green", fg = "white",)
+    Title.place(x=100, y=0, width= 200)
+
+
+#search label
+    search_byName = Label(root, text = "Search by name:", bg = "green", fg = "white")
+    search_byName.place(x=0, y=50, width=150)
+    inputforsearch_byName = Entry(root)
+    inputforsearch_byName.place(x= 150, y=50, width= 150)
+
+    search_byPhone = Label(root, text = "Search by Phone:", bg = "green", fg = "white")
+    search_byPhone.place(x=0, y=70, width=150)
+    inputforsearch_byPhone = Entry(root)
+    inputforsearch_byPhone.place(x= 150, y=70, width= 150)
+
+#name label
+    Name = Label(root, text = "First and Last Name :", bg = "light green", fg = "gray")
+    Name.place(x = 0, y= 100, width= 150)
+    inputName = Entry(root)
+    inputName.place(x=150, y= 100, width = 350)
+#Phone Lable
+    Phone = Label(root, text = "Phone Number :", bg = "light green", fg = "gray")
+    Phone.place(x = 0, y= 120, width= 150)
+    inputPhone = Entry(root)
+    inputPhone.place(x=150, y= 120, width = 350)
+
+#info label
+    info = Label(root, text = "Contact Information :", bg = "light green", fg = "gray")
+    info.place(x = 0, y= 140, width= 150)
+    inputinfo = Entry(root)
+    inputinfo.place(x=150, y= 140, width = 350)
+
+# add button
+    add = Button(root, text = "Add Contact", bg = "green", fg = "white")
+    add.place(x = 10, y = 170, width = 260)
+
+#delete button
+    Delete = Button(root, text= "Delete Contact", bg="green", fg="white")
+    Delete.place(x= 10, y= 190, width = 260)
+
+#edit button
+    Edit = Button(root, text= "Edit Contact", bg="green", fg="white")
+    Edit.place(x= 10, y= 210, width = 260)
+
+#sort button
+    Sort = Button(root, text= "Sort Contact", bg="green", fg="white")
+    Sort.place(x= 10, y= 230, width = 260)
+
+#Exit button
+    Exit = Button(root, text= "Exit", bg= "green", fg= "white", command = quit)
+    Exit.place(x= 10, y= 250, width = 260)
+
+#add view
+    view = ttk.Treeveiw(root, cloumns = (1, 2, 3), height = 5, show = "headings")
+    view.place(x= 270, y= 170, width = 300, height = 300)
+
+#heading for adding
+    tree.heading(1, text = "ID")
+    tree.heading(2, text = "Name")
+    tree.heading(3, text = "Phone")
+
+    root.mainloop()
+    return
+
+def write_log():
+    log = open('logfile.txt', 'w+')
+    print("name does not exist, if you like to make log name enter yes")
+    respond = input()
+    if respond == "yes":
+        print("enter your  name ")
+        name1 = input()
+        new_psword = input("enter password at least 7: ")
+        new_name = ("\n"+ name1+ "::"+ new_psword)
+        new_name1 = str(new_name)
+        log.write(new_name1)
+        log.close()
+        return
+
+
+name = input("please enter name ")
+log = open('logfile.txt', 'r')
+log_lines = log.readlines()
+for line in log_lines:
+    line = line.rstrip()
+    name1 = line.find(name)
+    name2 = str(name1)
+    if line.startswith(name2):
+        count +=1
+        index = line.find('::')
+        saved_password = str(line[index + 2:])
+        print("enter your password ")
+        password = input()
+        while n < 2:
+            n += 1
+            if str(password) == str(saved_password):
+                importkinter()
+                break
+            elif str(password) != str(saved_password):
+            input("try again!")
+    log.close()        
+
+    else:
+        write_log()
+        exit()
