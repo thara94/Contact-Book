@@ -2,7 +2,7 @@ n = 0
 count = 0
 
 from tkinter import *
-import tkinter as ttk
+from tkinter import ttk
 
 def importkinter():
 
