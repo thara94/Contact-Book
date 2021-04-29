@@ -1,8 +1,8 @@
 n = 0
 count = 0
-
-from tkinter import *
 from tkinter import ttk
+from tkinter import *
+
 
 def importkinter():
 
@@ -45,62 +45,65 @@ def importkinter():
 
 # add button
     add = Button(root, text = "Add Contact", bg = "green", fg = "white")
-    add.place(x = 10, y = 170, width = 260)
+    add.place(x = 10, y = 170, width = 150)
 
 #delete button
     Delete = Button(root, text= "Delete Contact", bg="green", fg="white")
-    Delete.place(x= 10, y= 190, width = 260)
+    Delete.place(x= 10, y= 190, width = 150)
 
 #edit button
     Edit = Button(root, text= "Edit Contact", bg="green", fg="white")
-    Edit.place(x= 10, y= 210, width = 260)
+    Edit.place(x= 10, y= 210, width = 150)
 
 #sort button
     Sort = Button(root, text= "Sort Contact", bg="green", fg="white")
-    Sort.place(x= 10, y= 230, width = 260)
+    Sort.place(x= 10, y= 230, width = 150)
 
 #Exit button
     Exit = Button(root, text= "Exit", bg= "green", fg= "white", command = quit)
-    Exit.place(x= 10, y= 250, width = 260)
+    Exit.place(x= 10, y= 250, width = 150)
 
 #add view
-    view = ttk.Treeveiw(root, cloumns = (1, 2, 3), height = 5, show = "headings")
-    view.place(x= 270, y= 170, width = 300, height = 300)
+    view = ttk.Treeview(root, columns = (1, 2, 3), height = 5, show = "headings")
+    view.place(x= 170, y= 170, width = 300, height = 200)
 
 #heading for adding
     view.heading(1, text = "ID")
     view.heading(2, text = "Name")
     view.heading(3, text = "Phone")
 
+    view.column(1, width = 30)
+    view.column(2, width = 150)
+    view.column(3, width = 160)
     root.mainloop()
     return
 
-def write_log():
-    log = open('logfile.txt', 'w+')
+def write_log() :
+    log = open('logfile.txt', 'r+')
+    log.read()
     print("name does not exist, if you like to make log name enter yes")
     respond = input()
     if respond == "yes":
-        print("enter your  name ")
+        print("enter user name ")
         name1 = input()
         new_psword = input("enter password at least 7: ")
-        new_name = ("\n"+ name1+ "::"+ new_psword)
+        new_name = ("\n"+  name1+ "::"+ new_psword)
         new_name1 = str(new_name)
         log.write(new_name1)
         log.close()
         return
 
 
-name = input("please enter name ")
-log = open('logfile.txt', 'r')
+
+name = input("please user name ")
+log = open('logfile.txt', "r")
 log_lines = log.readlines()
 for line in log_lines:
-    line = line.rstrip()
     name1 = line.find(name)
     name2 = str(name1)
     if line.startswith(name2):
-        count +=1
-        index = line.find('::')
-        saved_password = str(line[index + 2:])
+        #index = line.find('::')
+        saved_password = str(line[name2 + 3:]).strip()
         print("enter your password ")
         password = input()
         while n < 2:
@@ -109,9 +112,8 @@ for line in log_lines:
                 importkinter()
                 break
             elif str(password) != str(saved_password):
-            input("try again!")
-    log.close()        
-
+                input("try again!")
+        log.close()
     else:
         write_log()
         exit()
