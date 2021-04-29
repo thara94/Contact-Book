@@ -1,6 +1,6 @@
 n = 0
 count = 0
-from idlelib import tree
+
 from tkinter import *
 import tkinter as ttk
 
