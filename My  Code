@@ -1,9 +1,61 @@
-n = 0
-count = 0
-from tkinter import ttk
+
+
 from tkinter import *
+global fil
+global inputName
+global inputPhone
+global inputinfo
 
 
+
+# function to add all the typed information to the opend file
+def add_contact():
+    name1 = inputName.get()
+    phone1 = inputPhone.get()
+    info1 = inputinfo.get()
+    addto = open(fil, 'r+')
+    addto.read()
+    addto.write(name1)
+    addto.write("::")
+    addto.write(phone1)
+    addto.write("::")
+    addto.write(info1)
+    addto.close()
+    return
+
+# function to delet contact
+def delet_contact():
+    name1 = inputName.get()
+    phone1 = inputPhone.get()
+    info1 = inputinfo.get()
+    todelete = open(fil, 'r+')
+    deletelines = todelete.readlines()
+    for line in deletelines:
+        line = line.rstrip()
+        if line.startswith(name1):
+            todelete.write(line)
+    todelete.close()
+    return
+
+# function to edit the phone number
+def edit_contact():
+    name1 = inputName.get()
+    phone1 = inputPhone.get()
+    info1 = inputinfo.get()
+    toedit = open(fil, 'r+')
+    for line in toedit:
+        line = line.rstrip()
+        editparts = line.split("::")
+        edit = editparts[1]
+        toedit.read()
+        if line.startswith(name1):
+            newphone = toedit.replace('edit', 'phone1')
+            toedit.write(newphone)
+    toedit.close()
+    return
+
+
+#function to import tinker
 def importkinter():
 
     root = Tk()
@@ -19,30 +71,35 @@ def importkinter():
 #name label
     Name = Label(root, text = "First and Last Name :", bg = "light green", fg = "gray")
     Name.place(x = 0, y= 80, width= 150)
+    global inputName
     inputName = Entry(root)
-    inputName.place(x=150, y= 80, width = 350)
+    inputName.place(x=150, y= 80, width = 340)
+
 #Phone Lable
     Phone = Label(root, text = "Phone Number :", bg = "light green", fg = "gray")
     Phone.place(x = 0, y= 100, width= 150)
+    global inputPhone
     inputPhone = Entry(root)
-    inputPhone.place(x=150, y= 100, width = 350)
+    inputPhone.place(x=150, y= 100, width = 340)
 
 #info label
     info = Label(root, text = "Contact Information :", bg = "light green", fg = "gray")
     info.place(x = 0, y= 120, width= 150)
+    global inputinfo
     inputinfo = Entry(root)
-    inputinfo.place(x=150, y= 120, width = 350)
+    inputinfo.place(x=150, y= 120, width = 340)
 
 # add button
-    add = Button(root, text = "Add Contact", bg = "green", fg = "white")
+    add = Button(root, text = "Add Contact", bg = "green", fg = "white", command = add_contact)
     add.place(x = 10, y = 170, width = 150)
 
+
 #delete button
-    Delete = Button(root, text= "Delete Contact", bg="green", fg="white")
+    Delete = Button(root, text= "Delete Contact", bg="green", fg="white", command = delet_contact)
     Delete.place(x= 10, y= 190, width = 150)
 
 #edit button
-    Edit = Button(root, text= "Edit Contact", bg="green", fg="white")
+    Edit = Button(root, text= "Edit Number", bg="green", fg="white", command = edit_contact )
     Edit.place(x= 10, y= 210, width = 150)
 
 
@@ -52,13 +109,19 @@ def importkinter():
     Exit.place(x= 10, y= 230, width = 150)
 
 #add view
-    view = ttk.Treeview(root, height = 5, show = "headings")
+    view = Text(root, height = 300, bg= "light gray", fg = "black")
     view.place(x= 170, y= 170, width = 320, height = 300)
+    fil_open = open(fil, 'a+')
+    view.insert(END, fil_open.read())
+    fil_open.close()
+
 
     root.mainloop()
     return
 
-def write_log() :
+
+
+def write_log():
     log = open('logfile.txt', 'r+')
     log.read()
     print("name does not exist, if you like to make log name enter yes")
@@ -67,33 +130,41 @@ def write_log() :
         print("enter user name ")
         name1 = input()
         new_psword = input("enter password at least 7: ")
-        new_name = ("\n"+  name1+ "::"+ new_psword)
+        new_name = (name1+ "::"+ new_psword)
         new_name1 = str(new_name)
         log.write(new_name1)
         log.close()
-        return
+    return
 
-
-
-name = input("please user name ")
+n = 0
+name = input("please user name: ")
 log = open('logfile.txt', "r")
 log_lines = log.readlines()
+
+
 for line in log_lines:
-    name1 = line.find(name)
-    name2 = str(name1)
-    if line.startswith(name2):
-        #index = line.find('::')
-        saved_password = str(line[name2 + 3:]).strip()
-        print("enter your password ")
+    line = line.rstrip()
+    parts = line.split("::")
+    name1 = parts[0]
+    saved_password = parts[1]
+    if not line.startswith(name):
+        continue
+    if name == name1:
+        print("enter your password: ")
         password = input()
         while n < 2:
             n += 1
             if str(password) == str(saved_password):
+                global fil
+                fil = input("enter file name: ")
                 importkinter()
                 break
             elif str(password) != str(saved_password):
                 input("try again!")
+                if str(password) == str(saved_password):
+                    file = input("enter file name: ")
+                    importkinter()
         log.close()
-    else:
+    elif name != name1:
         write_log()
         exit()
